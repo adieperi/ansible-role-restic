@@ -1,31 +1,7 @@
 ---
-- name: Include main.yml vars file
-  include_vars:
-    file: main.yml
+- name: Include facts.yml
+  include: facts.yml
 
-- name: Install bzip2 package
-  apt:
-    name: bzip2
-    state: present
-
-- name: Download restic archive
-  get_url:
-    url: https://github.com/restic/restic/releases/download/v{{ resticVersion }}/restic_{{ resticVersion }}_linux_{{ go_arch }}.bz2
-    dest: /tmp
-
-- name: Unarchive /tmp/restic_{{ resticVersion }}_linux_{{ go_arch }}.bz2
-  shell: bzip2 -d /tmp/restic_{{ resticVersion }}_linux_{{ go_arch }}.bz2
-  args:
-    executable: /bin/bash
-
-- name: Move "restic_{{ resticVersion }}_linux_{{ go_arch }}" to "{{ binDirectory }}"
-  shell: mv /tmp/restic_{{ resticVersion }}_linux_{{ go_arch }} {{ binDirectory }}/restic
-  args:
-    executable: /bin/bash
-
-- name: Change file ownership, group and permissions in "{{ binDirectory }}/restic"
-  file:
-    path: "{{ binDirectory }}/restic"
-    owner: root
-    group: root
-    mode: '0555'
+- name: Include install.yml
+  include: install.yml
+  when: resticInstalledVersion.stdout < resticVersion  

@@ -1,0 +1,8 @@
+---
+- name: Check restic version
+  shell: restic version | awk '{print $2}'
+  args:
+    executable: /bin/bash
+  ignore_errors: yes
+  changed_when: false
+  register: resticInstalledVersion
