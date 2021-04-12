@@ -1,2 +1,2 @@
 ---
-binDirectory: /usr/local/bin
+restic_version: latest
