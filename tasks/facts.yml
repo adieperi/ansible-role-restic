@@ -3,6 +3,6 @@
   shell: restic version | awk '{print $2}'
   args:
     executable: /bin/bash
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false
-  register: resticInstalledVersion
+  register: restic_installed_version

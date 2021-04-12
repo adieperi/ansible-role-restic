@@ -1,7 +1,10 @@
 ---
-- name: Include facts.yml
-  include: facts.yml
+- include_tasks: variables.yml
 
-- name: Include install.yml
-  include: install.yml
-  when: resticInstalledVersion.stdout < resticVersion  
+- include_tasks: facts.yml
+
+- include_tasks: preflight.yml
+  when: restic_installed_version.stdout < restic_version
+
+- include_tasks: install.yml
+  when: restic_installed_version.stdout < restic_version
