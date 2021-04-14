@@ -1,8 +1,29 @@
 ---
-- name: Install bzip2 package
+- name: Install bzip2 package with apt
   apt:
     name: bzip2
     state: present
+    update_cache: true
+    cache_valid_time: 3600
+  when: ansible_os_family == 'Debian'
+
+- name: Install bzip2 package with dnf
+  dnf:
+    name: bzip2
+    state: present
+    update_cache: true
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version > '7'
+
+- name: Install bzip2 package with yum
+  yum:
+    name: bzip2
+    state: present
+    update_cache: true
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version < '8'
 
 - name: Download restic archive
   get_url:

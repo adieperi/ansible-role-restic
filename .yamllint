@@ -1,5 +1,6 @@
 ---
 extends: default
+
 rules:
   truthy:
     allowed-values:
@@ -8,4 +9,6 @@ rules:
       - 'false'
       - 'no'
 
-  line-length: disable
+  line-length:
+    max: 160
+    level: warning

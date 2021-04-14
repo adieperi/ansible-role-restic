@@ -2,18 +2,26 @@
 galaxy_info:
   author: Anthony Dieperink
   description: Ansible role for deploying the restic binary
+  role_name: restic
   license: MIT
   min_ansible_version: 2.9
 
   platforms:
-    - ubuntu:
+    - name: EL
+      versions:
+        - 8
+        - 7
+
+    - name: Ubuntu
       versions:
         - focal
         - bionic
+
     - name: Debian
       versions:
         - buster
         - stretch
+
   galaxy_tags:
     - restic
     - backup
