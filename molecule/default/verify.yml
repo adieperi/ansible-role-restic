@@ -5,6 +5,8 @@
   tasks:
     - name: Check if restic responds correctly
       command: restic version
+      changed_when: true
       register: restic_local_version
 
-    - debug: var=restic_local_version.stdout
+    - name: Show restic output version
+      debug: var=restic_local_version.stdout
