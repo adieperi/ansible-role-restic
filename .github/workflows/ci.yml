@@ -21,6 +21,9 @@ jobs:
           - debian9
 
     steps:
+      - name: Check outthe codebase
+        uses: actions/checkout@v2
+
       - name: Set up Python 3
         uses: actions/setup-python@v2
         with:
