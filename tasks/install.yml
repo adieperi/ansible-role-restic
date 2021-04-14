@@ -1,8 +1,29 @@
 ---
-- name: Install bzip2 package
+- name: Install bzip2 package with apt
   apt:
     name: bzip2
     state: present
+    update_cache: true
+    cache_valid_time: 3600
+  when: ansible_os_family == 'Debian'
+
+- name: Install bzip2 package with dnf
+  dnf:
+    name: bzip2
+    state: present
+    update_cache: true
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version > '7'
+
+- name: Install bzip2 package with yum
+  yum:
+    name: bzip2
+    state: present
+    update_cache: true
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_distribution_major_version < '8'
 
 - name: Download restic archive
   get_url:
@@ -12,9 +33,7 @@
     checksum: "sha256:{{ __restic_checksum }}"
 
 - name: Unarchive "{{ restic_tmp_directory }}/restic_{{ restic_version }}_linux_{{ go_arch }}.bz2"
-  shell: bzip2 -d "{{ restic_tmp_directory }}/restic_{{ restic_version }}_linux_{{ go_arch }}.bz2"
-  args:
-    executable: /bin/bash
+  command: bzip2 -d "{{ restic_tmp_directory }}/restic_{{ restic_version }}_linux_{{ go_arch }}.bz2"
   changed_when: true
 
 - name: Ensure "{{ restic_bin_birectory }}" exists

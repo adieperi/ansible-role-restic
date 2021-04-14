@@ -1,0 +1,10 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check if restic responds correctly
+      command: restic version
+      register: restic_local_version
+
+    - debug: var=restic_local_version.stdout
