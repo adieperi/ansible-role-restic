@@ -49,7 +49,7 @@
     remote_src: true
     owner: root
     group: root
-    mode: '0111'
+    mode: 0111
 
 - name: Remove "{{ restic_tmp_directory }}/restic_{{ restic_version }}_linux_{{ go_arch }}"
   file:
